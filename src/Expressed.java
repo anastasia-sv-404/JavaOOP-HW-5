@@ -1,3 +1,3 @@
-public interface Expressed {
-    String getStringExpression(String oper);
+public interface Expressed<N> {
+    String getStringExpression(N x, String oper, N y);
 }

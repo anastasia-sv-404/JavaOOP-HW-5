@@ -1,41 +1,38 @@
-public class CalcComplex extends Calc<Complex> implements Expressed {
+public class CalcComplex extends Calc<Complex> implements Expressed<Complex> {
 
-    public CalcComplex(Complex x, Complex y) {
-        super(x, y);
+    @Override
+    public Complex sum(Complex x, Complex y) {
+        double real = x.getRe() + y.getRe();
+        double imag = x.getIm() + y.getIm();
+        return new Complex(real, imag);
     }
     @Override
-    public Complex sum() {
-        double real = this.x.getRe() + this.y.getRe();
-        double imag = this.x.getIm() + this.y.getIm();
+    public Complex difference(Complex x, Complex y) {
+        double real = x.getRe() - y.getRe();
+        double imag = x.getIm() - y.getIm();
         return new Complex(real, imag);
     }
 
     @Override
-    Complex difference() {
-        double real = this.x.getRe() - this.y.getRe();
-        double imag = this.x.getIm() - this.y.getIm();
+    public Complex multiplication(Complex x, Complex y) {
+        double real = x.getRe() * y.getRe() - x.getIm() * y.getIm();
+        double imag = x.getIm() * y.getRe() + y.getIm() * x.getRe();
         return new Complex(real, imag);
     }
 
     @Override
-    Complex multiplication() {
-        double real = this.x.getRe() * this.y.getRe() - this.x.getIm() * this.y.getIm();
-        double imag = this.x.getIm() * this.y.getRe() + this.y.getIm() * this.x.getRe();
+    public Complex division(Complex x, Complex y) {
+        double real = (x.getRe() * y.getRe() - x.getIm() * y.getIm()) /
+                (y.getRe() * y.getRe() + y.getIm() * y.getIm());
+        double imag = (x.getRe() * y.getIm() + y.getRe() * x.getIm()) /
+                (y.getRe() * y.getRe() + y.getIm() * y.getIm());
         return new Complex(real, imag);
     }
 
     @Override
-    Complex division() {
-        double real = (this.x.getRe() * this.y.getRe() - this.x.getIm() * this.y.getIm()) /
-                (this.y.getRe() * this.y.getRe() + this.y.getIm() * this.y.getIm());
-        double imag = (this.x.getRe() * this.y.getIm() + this.y.getRe() * this.x.getIm()) /
-                (this.y.getRe() * this.y.getRe() + this.y.getIm() * this.y.getIm());
-        return new Complex(real, imag);
-    }
-
-    @Override
-    public String getStringExpression(String oper) {
-        String res = "(" + this.x.toString() + ")" + " " + oper + " " + "(" + this.y.toString() + ")" + " = " + this.res.toString() +"\n";
+    public String getStringExpression(Complex x, String oper, Complex y) {
+        String res = "(" + x.toString() + ")" + " " + oper + " " + "(" + y.toString() + ")" + " = " +
+                getRes().toString() +"\n";
         return res;
     }
 }

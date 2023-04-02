@@ -1,12 +1,7 @@
 public abstract class Calc<N> {
-    protected N x;
-    protected N y;
-    protected N res;
-
-    public Calc(N x, N y) {
-        this.x = x;
-        this.y = y;
-    }
+    private N x;
+    private N y;
+    private N res;
 
     public N getX() {
         return x;
@@ -28,24 +23,23 @@ public abstract class Calc<N> {
         this.y = y;
     }
 
-    abstract N sum();
+    abstract N sum(N x, N y);
 
-    abstract N difference();
+    abstract N difference(N x, N y);
 
-    abstract N multiplication();
+    abstract N multiplication(N x, N y);
 
-    abstract N division();
+    abstract N division(N x, N y);
 
-    public void operation(String oper) {
-        if (oper.equals("+")) {
-            this.res = this.sum();
-        } else if (oper.equals("-")) {
-            this.res = this.difference();
-        } else if (oper.equals("*")) {
-            this.res = this.multiplication();
+    public void operation(N x, String oper, N y) {
+        if ("+".equals(oper)) {
+            this.res = this.sum(x, y);
+        } else if ("-".equals(oper)) {
+            this.res = this.difference(x, y);
+        } else if ("*".equals(oper)) {
+            this.res = this.multiplication(x, y);
         } else {
-            this.res = this.division();
+            this.res = this.division(x, y);
         }
     }
-
 }
